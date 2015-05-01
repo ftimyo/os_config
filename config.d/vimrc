@@ -1,0 +1,111 @@
+""""""""""Vundle Config"""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+"syntax checking
+"Plugin 'scrooloose/syntastic'
+
+"smart status line
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'
+
+"git version status
+Plugin 'tpope/vim-fugitive'
+
+"session management
+"Plugin 'xolox/vim-session'
+"Plugin 'xolox/vim-misc'
+
+"syntax checking and auto complete
+Plugin 'Valloric/YouCompleteMe'
+
+"promptline bash
+Plugin 'edkolev/promptline.vim'
+
+"Outline viewer
+Plugin 'majutsushi/tagbar'
+
+"File Tree
+Plugin 'scrooloose/nerdtree'
+
+"Manipulate file
+"Plugin 'kien/ctrlp.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+""""""""""My Non-Plugin Config""""""""""""""""""""""""""""""
+syntax on
+set nu
+set cindent smartindent
+" use Google's coding style --- two space indent
+set sm ts=2 sw=2
+"set fdm=syntax
+set hls is ruler
+set mouse=n
+set cst
+set tw=80
+ab #b /*------------------------------*
+ab #e *------------------------------*/
+
+"my color scheme
+colorscheme mac
+
+""""""""""Plugin Config"""""""""""""""""""""""""""""""""""""
+"""""Syntastic Config""""""""""""""""""
+"let g:syntastic_cpp_compiler = 'clang++'
+"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+"""""Airline Config""""""""""""""""""
+"always show status line
+set laststatus=2
+"enable airline extension
+let g:airline#extensions#tabline#enabled = 1
+"customize airline layout
+set encoding=utf-8
+" powerline symbols
+" download powerline fonts from
+" https://github.com/powerline/fonts
+" Powerline fonts are compatible with both osx and linux.
+" Set the terminal fonts to make following symbols properly displayed.
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+"""""YCM Config""""""""""""""""""
+"solve the ycm Value Error problem
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_autoclose_preview_window_after_completion=1
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"show/hide tagbar window
+"TagbarToggle
+
+"show/hide the Nerdtree window
+"NERDTreeToggle

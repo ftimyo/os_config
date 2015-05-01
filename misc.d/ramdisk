@@ -1,0 +1,4 @@
+#!/bin/bash
+diskutil erasevolume HFS+ 'VDISK' `hdiutil attach -nomount ram://$((1024*2048*10))`
+mkdir "/Volumes/VDISK/Caches"
+mkdir "/Volumes/VDISK/Downloads"

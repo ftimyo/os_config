@@ -1,0 +1,51 @@
+#!/bin/bash
+
+if (( $# != 1 )); then
+	echo you must have one \# argument
+	exit 1
+fi
+
+if [[ `whoami` != root ]]; then
+	echo "you must be root to run this program"
+	exit 1
+fi
+modprobe zram
+rm -Rf /media/RAMDisk
+mkdir /media/RAMDisk
+echo $((1024*1024*1024*$1)) > /sys/block/zram0/disksize
+chmod 777 /dev/zram0
+#mkexfatfs /dev/zram0
+mkfs -t ext4 /dev/zram0
+mount /dev/zram0 /media/RAMDisk/
+#
+rm -Rf /home/tim/.bash_history
+rm -Rf /home/tim/.cache
+rm -Rf /home/tim/.mozilla
+rm -Rf /var/cache/apt
+rm -Rf /home/tim/Downloads
+#
+mkdir /media/RAMDisk/apt
+mkdir /media/RAMDisk/cache
+mkdir /media/RAMDisk/mozilla
+mkdir /media/RAMDisk/Downloads
+mkdir -p /media/RAMDisk/HOME/apt
+touch /media/RAMDisk/bash_history
+chmod -R 777 /media/RAMDisk/apt
+chmod -R 777 /media/RAMDisk/cache
+chmod -R 777 /media/RAMDisk/mozilla
+chmod -R 777 /media/RAMDisk/Downloads
+chmod -R 777 /media/RAMDisk/HOME
+chmod -R 777 /media/RAMDisk/bash_history
+#
+ln -s /media/RAMDisk/apt /var/cache/apt
+ln -s /media/RAMDisk/cache /home/tim/.cache
+ln -s /media/RAMDisk/mozilla /home/tim/.mozilla
+ln -s /media/RAMDisk/bash_history /home/tim/.bash_history
+ln -s /media/RAMDisk/Downloads /home/tim/Downloads
+
+chmod -R 777  /var/cache/apt
+chmod -R 777  /home/tim/.cache
+chmod -R 777  /home/tim/.mozilla
+chmod -R 777  /home/tim/.bash_history
+chmod -R 777  /home/tim/Downloads
+chmod -R 777  /media/RAMDisk
