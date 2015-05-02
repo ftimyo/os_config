@@ -41,6 +41,8 @@ pxz
 exfat-fuse exfat-utils
 ###archive iso images
 genisoimage
+###multimedia
+vlc flashplugin flashplugin-nonfree flashplugin-nonfree-extrasound
 ###kernel building
 build-essential
 
