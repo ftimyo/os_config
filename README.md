@@ -45,8 +45,8 @@ genisoimage
 vlc flashplugin flashplugin-nonfree flashplugin-nonfree-extrasound
 ###kernel building
 build-essential
-
-
+###download manager
+uget
 
 
 ########################################
