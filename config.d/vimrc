@@ -24,16 +24,22 @@ Plugin 'tpope/vim-fugitive'
 "Plugin 'xolox/vim-misc'
 
 "syntax checking and auto complete
+"C++
 Plugin 'Valloric/YouCompleteMe'
+"Python
+Plugin 'davidhalter/jedi-vim'
 
 "promptline bash
 Plugin 'edkolev/promptline.vim'
 
+"cohama lexima auto closing
+Plugin 'cohama/lexima.vim'
+
 "Outline viewer
-Plugin 'majutsushi/tagbar'
+"Plugin 'majutsushi/tagbar'
 
 "File Tree
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
 
 "Manipulate file
 "Plugin 'kien/ctrlp.vim'
@@ -60,11 +66,16 @@ set cindent smartindent
 set sm ts=2 sw=2
 "set fdm=syntax
 set hls is ruler
-set mouse=n
+"set mouse=a
 set cst
 set tw=80
 ab #b /*------------------------------*
 ab #e *------------------------------*/
+"set paste
+"pasting text unmodified from other applications
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
 
 "my color scheme
 colorscheme mac
@@ -103,6 +114,15 @@ let g:airline_symbols.linenr = ''
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion=1
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"""""Jedi-Vim Config""""""""""""""""""
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
 
 "show/hide tagbar window
 "TagbarToggle
