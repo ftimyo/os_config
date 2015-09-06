@@ -1,6 +1,6 @@
 # i3_config file
 # Author: Timothy You
-# 
+#
 # Use 'xmodmap' to check control key symbols
 # Use 'xmodmap -pke' to check all key symbols
 #
@@ -65,8 +65,8 @@ bindsym $mod_option+b exec xbacklight -dec 5
 floating_modifier $mod_option
 
 #Start a terminal
-bindsym $mod_option+t exec i3-sensible-terminal
-#bindsym $mod_option+t exec gnome-terminal
+#bindsym $mod_option+t exec i3-sensible-terminal
+bindsym $mod_option+t exec gnome-terminal
 
 #Kill focused window
 bindsym $mod_option+Shift+Q kill
@@ -202,5 +202,10 @@ workspace 9 output $monitor
 #exec --no-startup-id i3lock -n -b -t -i ~/.i3/linen.png
 #exec --no-startup-id i3-msg "workspace 9; exec google-chrome --incognito; workspace 1"
 exec --no-startup-id /usr/bin/nm-applet
+exec --no-startup-id /usr/bin/gnome-settings-daemon
+##may call "dconf write /org/gnome/settings-daemon/plugins/cursor/active false"
+##to fix the cursor disappear bug in gnome-settings-daemon
+exec --no-startup-id /usr/bin/gnome-keyring-daemon
+#exec --no-startup-id /usr/bin/gnome-screensaver
 #exec --no-startup-id /usr/bin/dropbox start
 exec --no-startup-id /usr/bin/feh --bg-scale ~/.i3/DarkGreen.png

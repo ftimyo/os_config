@@ -9,6 +9,10 @@ cp 20-thinkpad.conf /usr/share/X11/xorg.conf.d/20-thinkpad.conf
 apt-get install i3 feh alsa-utils xbacklight
 alsa-utils: amixer (audio_ctl)
 xbacklight: xbacklight (brightness_ctl)
+##may call "dconf write /org/gnome/settings-daemon/plugins/cursor/active false"
+##to fix the cursor disappear bug in gnome-settings-daemon when running i3
+##because I add "exec gnome-settings-daemon" in i3/config file
+
 
 ##package required for my vim and bash configuration
 
