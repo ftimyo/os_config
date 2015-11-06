@@ -27,7 +27,7 @@ Plugin 'tpope/vim-fugitive'
 "C++
 Plugin 'Valloric/YouCompleteMe'
 "Python
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 
 "promptline bash
 Plugin 'edkolev/promptline.vim'
