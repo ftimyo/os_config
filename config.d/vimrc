@@ -13,7 +13,8 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'scrooloose/syntastic'
 
 "smart status line
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
 Plugin 'bling/vim-bufferline'
 
 "git version status
