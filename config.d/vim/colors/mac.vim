@@ -5,7 +5,7 @@ syntax	on
 
 "	Color	specifications.	Change	them	as	you	would	like.
 "term--B&W	terminal	cterm--color	terminal
-hi	Normal																				ctermfg=white					ctermbg=black
+hi	Normal																				ctermfg=251					ctermbg=232
 hi	SpecialKey		term=bold					cterm=bold		ctermfg=darkred
 hi	Nontext				term=bold					cterm=bold		ctermfg=white
 hi	Directory			term=bold					cterm=bold		ctermfg=brown
@@ -18,7 +18,7 @@ hi	Question			term=standout			cterm=bold		ctermfg=darkgreen
 hi	StatusLine		term=bold,reverse	cterm=bold		ctermfg=lightblue			ctermbg=white
 hi	StatusLineNC	term=reverse										ctermfg=white					ctermbg=lightblue
 hi	Title					term=bold					cterm=bold		ctermfg=darkmagenta
-hi	Visual				term=reverse			cterm=reverse
+hi	Visual				term=reverse			cterm=reverse ctermbg=darkgrey
 hi	WarningMsg		term=standout			cterm=bold		ctermfg=darkblue
 
 hi	Comment				term=none					cterm=bold		ctermfg=70						ctermbg=black

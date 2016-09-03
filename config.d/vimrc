@@ -80,6 +80,8 @@ set showmode
 
 "my color scheme
 colorscheme mac
+"colorscheme mine
+"colorscheme mymolokai
 
 """"""""""Plugin Config"""""""""""""""""""""""""""""""""""""
 """""Syntastic Config""""""""""""""""""
