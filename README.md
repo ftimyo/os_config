@@ -148,6 +148,8 @@ git clone https://github.com/gmarik/Vundle.vim
 ##wait till it finishes building.
 ##2) In file
 '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+##YCM ycm YouCompleteMe Check for C++ headers on OSX, use following command
+##echo | clang -stdlib=libc++ -v -E -x c++ -
 ##update the proper path for boost library, and set proper option for c++.
 ##to support C++11 and C++14, comment out the c++98 option, and add c++1y
 ##An example .ycm_extra_conf.py file for OSX can be found in os_config repo
