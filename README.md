@@ -71,6 +71,12 @@ brew install boost
 brew install cdrtools #for mkisofs
 brew install p7zip
 brew install xz
+#install Vim 8 on OSX
+brew install vim
+#fuzzy find easier than find
+brew install fzf
+#ag easier than grep
+brew install ag
 
 #essential apps need to install that no in app store
 #do not install them from brew-cask
@@ -85,16 +91,14 @@ audacity
 vox
 uTorrent
 iGetter
-Skim
+Skim		#PDF reader
 Evernote
-Cyberduck
+Cyberduck	#remote server file management
+Calibre	#ebook reader
 
 #essential packages from AppStore
-##Wechat must be install from AppStore
-
-#install Vim 8 on OSX
-brew install vim
-
+##Wechat must be installed from AppStore
+##BetterSnapTool must be installed from AppStore
 
 ########################################
 
