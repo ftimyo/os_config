@@ -61,7 +61,6 @@ uget
 visit "http://brew.sh" for detail
 
 #essential packages from homebrew
-brew install caskroom/cask/brew-cask
 brew update
 brew install htop
 ##package to build YCM
@@ -69,55 +68,32 @@ brew install cmake
 ##boost library installed at /usr/include/boost
 brew install boost
 ##BSD UNIX Kit mkisofs to archive iso images
-brew install cdrtools
-brew install cscope
-brew install ctags
+brew install cdrtools #for mkisofs
 brew install p7zip
-brew install python3
-##Latest xz utility, it should support parallelism
 brew install xz
 
-#essential packages from brew cask
-##utility and productivity
-brew cask install alfred
-brew cask install iterm2
-brew cask install xquartz
-brew cask install bettertouchtool
-brew cask install java
-brew cask install flash
-brew cask install adobe-reader
-brew cask install dropbox
-brew cask install virtualbox
-##multimedia
-brew cask install google-chrome
-brew cask install firefox
-brew cask install vlc
-brew cask install xld
-brew cask install mplayerx
-brew cask install audacity
-brew cask install vox
-
-#essential packages from thrid-party
+#essential apps need to install that no in app store
+#do not install them from brew-cask
+iterm2
+xquartz
+bettertouchtool
+google-chrome
+firefox
+vlc
+xld
+audacity
+vox
 uTorrent
 iGetter
+Skim
+Evernote
+Cyberduck
 
 #essential packages from AppStore
 ##Wechat must be install from AppStore
 
-#install Vim on OSX
-##Before install MacVim, XCode must be installed from AppStore
-##Then MacVim can be installed from Homebrew
-brew install macvim
-##After the installation, find the path to commands:
-macvim mvimdiff mview / mvim mvimdiff mview
-##make symbolic links to them, for examples:
-ln -s /usr/local/bin/mvim /usr/local/bin/vim
-ln -s /usr/local/bin/mvim /usr/local/bin/vi
-ln -s /usr/local/bin/mvimdiff /usr/local/bin/vimdiff
-ln -s /usr/local/bin/mview /usr/local/bin/view
-##now vim/vi can be invoked from commandline
-
-
+#install Vim 8 on OSX
+brew install vim
 
 
 ########################################
@@ -133,17 +109,14 @@ git clone https://github.com/powerline/fonts
 fc-cache -vf ~/.fonts/
 ##4) use liberation regular powerline fonts for the terminal
 
-#Configure Vim with Vundle
+#Configure Vim with vim-plug
 ##1) copy the .vim/ and .vimrc file from os_config repo to ~/
-##2) mkdir bundle under ~/.vim
-##3) under ~/.vim/bundle/
-git clone https://github.com/gmarik/Vundle.vim
-##4) invoke vim from commandline, in ex mode type command
-:VundleInstall
+##2) check https://github.com/junegunn/vim-plug
 ##wait till all vim plugins get installed
 
 #Configure YCM
-##1) Under ~/.vim/bundle/YouCompleteMe/
+##1) Not needed now since we are using vim-plug instead of Vundle
+Under ~/.vim/bundle/YouCompleteMe/
 ./install.sh --clang-completer
 ##wait till it finishes building.
 ##2) In file

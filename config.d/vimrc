@@ -1,139 +1,437 @@
-""""""""""Vundle Config"""""""""""""""""""""""""""""""""""""
-set nocompatible              " be iMproved, required
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-"syntax checking
-"Plugin 'scrooloose/syntastic'
-
-"smart status line
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-airline/vim-airline'
-Plugin 'bling/vim-bufferline'
-
-"git version status
-Plugin 'tpope/vim-fugitive'
-
-"session management
-"Plugin 'xolox/vim-session'
-"Plugin 'xolox/vim-misc'
-
-"syntax checking and auto complete
-"C++
-Plugin 'Valloric/YouCompleteMe'
-"Python
-"Plugin 'davidhalter/jedi-vim'
-
-"promptline bash
-Plugin 'edkolev/promptline.vim'
-
-"cohama lexima auto closing
-Plugin 'cohama/lexima.vim'
-
-"Outline viewer
-"Plugin 'majutsushi/tagbar'
-
-"File Tree
-"Plugin 'scrooloose/nerdtree'
-
-"Manipulate file
-"Plugin 'kien/ctrlp.vim'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-""""""""""My Non-Plugin Config""""""""""""""""""""""""""""""
-syntax on
-set nu
-set cindent smartindent
-" use Google's coding style --- two space indent
-set sm ts=2 sw=2
-"set fdm=syntax
-set hls is ruler
-"set mouse=a
-set cst
-set tw=80
-ab #b /*------------------------------*
-ab #e *------------------------------*/
-"set paste
-"pasting text unmodified from other applications
-nnoremap <F2> :set invpaste paste?<CR>
-set pastetoggle=<F2>
-set showmode
-
-"my color scheme
-colorscheme mac
-"colorscheme mine
-"colorscheme mymolokai
-
-""""""""""Plugin Config"""""""""""""""""""""""""""""""""""""
-"""""Syntastic Config""""""""""""""""""
-"let g:syntastic_cpp_compiler = 'clang++'
-"let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-
-"""""Airline Config""""""""""""""""""
-"always show status line
-set laststatus=2
-"enable airline extension
-let g:airline#extensions#tabline#enabled = 1
-"customize airline layout
-set encoding=utf-8
-" powerline symbols
-" download powerline fonts from
-" https://github.com/powerline/fonts
-" Powerline fonts are compatible with both osx and linux.
-" Set the terminal fonts to make following symbols properly displayed.
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plugin 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+filetype off
+"Set runtime path to include vundle
+"set rtp+=~/.vim/bundle/Vundle.vim
+if has('nvim')
+	call plug#begin('~/.local/share/nvim/plugged')
+else
+	call plug#begin('~/.vim/plugged')
 endif
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+"======Status Line======
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+Plug 'edkolev/promptline.vim'
+"======Session Management======
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+"======Navigation======
+"buffer
+Plug 'ctrlpvim/ctrlp.vim'
+"better than grep
+Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
+Plug 'Chun-Yang/vim-action-ag'
+"ctag on the go
+Plug 'majutsushi/tagbar'
+"Plug 'xolox/vim-easytags'
+"git wrapper
+Plug 'tpope/vim-fugitive'
+"Nerd Tree
+Plug 'scrooloose/nerdtree'
+"======Shortcut======
+"snippte
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+"======python ide======
+"syntax check
+Plug 'scrooloose/syntastic'
+"Plug 'klen/python-mode', {'for': 'python'}
+"vim indent guide
+Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'nvie/vim-flake8', {'for': 'python'}
+"=======Markdown========
+"preview markdown in a browser
+"Plug 'kannokanno/previm'
+"Plug 'tyru/open-browser.vim'
+Plug 'iamcco/markdown-preview.vim'
+"local markdown memo list
+Plug 'glidenote/memolist.vim'
+"======Distraction free======
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+"======MISC======
+Plug 'chrisbra/vim-diff-enhanced'
+"display marks on left
+Plug 'kshenoy/vim-signature'
+"Multiple cursors
+Plug 'terryma/vim-multiple-cursors'
+"highlight multiple
+Plug 't9md/vim-quickhl'
+" call tree
+"Plug 'hari-rangarajan/CCTree'
+"vim color and syntax
+Plug 'monojo/vim-basic'
+"cscope mapping & setting
+Plug 'monojo/cscope-map'
+"color
+Plug 'flazz/vim-colorschemes'
+"ultimate auto complete tool
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer'}
+"show register content
+Plug 'junegunn/vim-peekaboo'
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable'}
+Plug 'hdima/python-syntax'
 
-"""""YCM Config""""""""""""""""""
-"solve the ycm Value Error problem
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_completion=1
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+call plug#end()
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Options 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""Color schemes
+"load color scheme mine.vim
+"set t_Co=256
+"set background=dark
+"colorscheme mine
+"colorscheme lucius
+"colorscheme solarized
+"colorscheme molokai
+"colorscheme base16
+"color mine
+"colorscheme mymolokai
+"use seoul256 for python script
+"233 ~ 239
+"autocmd FileType python let g:seoul256_background = 234 | colorscheme seoul256 
+colorscheme seoul256
+let g:seoul256_background = 234
 
-"""""Jedi-Vim Config""""""""""""""""""
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
+"colorscheme solarized
+"let g:solarized_visibility = "high"
+"let g:solarized_contrast = "high"
+filetype plugin indent on
+syntax enable
+set autoindent
+set backspace=indent,eol,start
+"set backspace=2		" Allows insert-mode backspace to work as one expects
+set complete-=i
+set smarttab
+set nrformats-=octal
+set ttimeout
+set ttimeoutlen=50
+set incsearch  		"incremental searching
+set laststatus=2
+set ruler			" Show the line position at the bottom of the window
+set wildmenu
+set scrolloff=1		" Minimum lines between cursor and window edge
+set sidescrolloff=5
+set display+=lastline
+set autoread
+set history=1000
+set tabpagemax=50
+set sessionoptions-=options
+set cindent
+set cinkeys=0{,0},:,!^F,o,O,e	" See "cinkeys"; this stops "#" from indenting
+set fileformat=unix	" No crazy CR/LF
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+" If you do ":set list", shows trailing spaces
+set mouse=n			" I don't like the mouse in VIM
+set mousefocus 
 
-"show/hide tagbar window
-"TagbarToggle
+"Disable backup, swap files
+set nobackup	
+set nowritebackup
+set noswapfile
 
-"show/hide the Nerdtree window
-"NERDTreeToggle
+set hlsearch  		" Hightlight the search	
+set nojoinspaces	" One space after a "." rather than 2
+set shiftwidth=4	" Indent by 4 columns (for C functions, etc).
+set showcmd			" Show partially typed commands
+set showmatch		" Show parentheses matching
+set smartindent		" Indent settings (really only the cindent matters)
+set textwidth=80	" Maximum line width
+if !empty(&viminfo)
+	set viminfo^=!
+endif
+set whichwrap=<,>,[,],h,l " Allows for left/right keys to wrap across lines
+set writebackup		" Write temporary backup files in case we crash
+set ignorecase 		" Ingore the case sensitive
+set formatoptions=tcroql "Set text and comment formatting 
+set formatoptions+=j
+
+let mapleader="," " map leader to comma
+syn sync fromstart " Increase the highlighting accuracy
+
+set guifont=Source\ Code\ Pro\ For\ Powerline:h13
+set relativenumber
+" folding mode
+set fdm=syntax
+
+" Encoding
+scriptencoding utf-8
+"set encoding=utf-8
+set fenc=utf-8
+set termencoding=utf-8
+set number 			"Turn line number on
+
+"set comments=sl:/*,mb:\ *,elx:\ */ 		"intelligent comments
+autocmd FileType * set tabstop=4    	"tab 4 spaces
+"for python, real python use spaces
+autocmd FileType python set tabstop=4|
+			\ set expandtab|
+			\ set shiftwidth=4|
+			\ set softtabstop=4  
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Function
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Based on VIM tip 102: automatic tab completion of keywords
+" 
+"function InsertTabWrapper(dir)
+"    let col = col('.') - 1
+"    if !col || getline('.')[col - 1] !~ '\k'
+"	return "\<tab>"
+"    elseif "back" == a:dir
+"	return "\<c-p>"
+"    else
+"	return "\<c-n>"
+"    endif
+"endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enhanced keyboard mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" If it's OSX aka Unix:Darwin, we have to map the functon key different
+if has("unix")
+	let s:uname = system("uname -s")
+	"'\n' have to be used
+	if s:uname == "Darwin\n"
+		map <Esc>OP <F1>
+		map <Esc>OQ <F2>
+		map <Esc>OR <F3>
+		map <Esc>OS <F4>
+		map <Esc>[15~ <F5>
+		map <Esc>[17~ <F6>
+		map <Esc>[18~ <F7>
+		map <Esc>[19~ <F8>
+		map <Esc>[20~ <F9>
+		map <Esc>[21~ <F10>
+		map <Esc>[23~ <F11>
+		map <Esc>[24~ <F12>
+	else
+		map <Esc>[15~ <F5>
+		map <Esc>[17~ <F6>
+		map <Esc>[18~ <F7>
+		map <Esc>[19~ <F8>
+		map <Esc>[20~ <F9>
+		map <Esc>[21~ <F10>
+		map <Esc>[23~ <F11>
+		map <Esc>[24~ <F12>
+
+	endif
+endif
+
+"set <F7>=<C-v><F7>
+"set <F8>=<C-v><F8>
+
+" switch between header/source with F4
+"map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+" Split screen
+"map <c-s> :vsplit<CR>
+" Move between Window
+nnoremap <c-h> <c-w>h
+if has('nvim')
+"osx use wrong terminfo
+	nmap <BS> <c-w>h
+endif
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+
+"use when too many window in a single tab
+"open current buffer in a new tab
+nnoremap tt :tab split<CR>
+"close tab
+nnoremap tc :tabc<CR>
+"stop highlight from previous search
+nnoremap <esc> :noh<CR><esc>
+"use jk to exit insert
+inoremap jk <esc>
+"tag shortcut map
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+"Tab to auto completion
+"inoremap <tab> <c-r>=InsertTabWrapper("fwd")<cr>
+"inoremap <s-tab> <c-r>=InsertTabWrapper("back")<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""vim-airline""""""""
+"make it work
+"enable extention support
+"let g:airline_enable_syntastic = 1  "deprecated
+let g:airline#extentions#syntastic#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#symbol = '!'
+let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
+let g:airline#extensions#tagbar#enabled = 1
+"short leave insert mode
+"bufferline
+let g:airline#extensions#bufferline#enabled = 0
+let g:airline#extensions#bufferline#overwrite_variables = 1
+"make buuferline on status line
+let g:bufferline_echo = 0
+  autocmd VimEnter *
+    \ let &statusline='%{bufferline#refresh_status()}'
+      \ .bufferline#get_status_string()
+"use powerline style fonts
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'molokai'
+"let g:airline#extensions#tmuxline#enabled = 1
+"let g:tmuxline_theme = 'zenburn'
+"select tab(actually its buffer)
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extentions#tabline#fnamemod = ':t'
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+
+"tagbar support
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#flags = 's' "show signature(parms)
+
+""""""""YCM""""""""
+if s:uname == "Darwin\n"
+	"change to local one
+	"let g:ycm_path_to_python_interpreter="/usr/local/bin/python" 
+	let g:ycm_python_binary_path = '/usr/local/bin/python3'
+	"disalbe syntax checker
+	let g:ycm_show_diagnositcs_ui = 0
+endif
+"go to referce
+"only work for javascript & python
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+	"solve the ycm Value Error problem
+if has('nvim') 
+	let g:ycm_global_ycm_extra_conf = '~/.local/share/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
+else
+	let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py' 
+endif
+
+"let g:ycm_filetype_blacklist = {
+"	\ 'python' : 1,
+"	\ 'py' : 1
+"	\}
+""""""""Session""""""""
+let g:session_autosave = 'no'
+"let g:session_autotsave = 'yes'
+let g:session_autoload = 'no'
+
+""""""""Utltisnips""""""""
+let g:UltiSnipsExpandTrigger = "<leader>u"
+let g:UltiSnipsJumpForwardTrigger = "<leader>j"
+let g:UltiSnipsJumpBackwardTrigger = "<leader>k"
 "
-"""""Lexima Config""""""""""""""""""
-call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})
-call lexima#add_rule({'char': '$', 'at': '\%#\$', 'leave': 1, 'filetype': 'tex'})
-call lexima#add_rule({'char': '<BS>', 'at': '\$\%#\$', 'delete': 1, 'filetype': 'tex'})
+""""""""Indent guide""""""""
+let g:indent_guides_enable_on_vim_startup = 0
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 5
+hi IndentGuidesEven ctermbg=lightgrey
+
+"""""""Tagbar""""""""
+nnoremap <F8> :TagbarToggle<CR>
+let g:tagbar_left = 1
+
+"""""""CtrlP"""""""""
+"dont know why tab also trigger this
+"cause c-i is mapped to jump
+nnoremap <leader>i :CtrlPBufTagAll<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
+"search tag
+nnoremap <leader>t :CtrlPTag<CR>
+"search current folder file
+nnoremap <leader>c : CtrlPCurWD<CR>
+
+""""""""Promptline""""""""
+let g:promptline_preset = {
+	\'a' : [ promptline#slices#host() ],
+	\'x' : [ promptline#slices#cwd() ],
+    \'y' : [ promptline#slices#vcs_branch() ],
+    \'warn' : [ promptline#slices#last_exit_code() ]}
+
+""""""""NerdTree"""""""""""""
+"au VimEnter * NERDTree 		"auto start nerd tree
+map <F7> :NERDTreeToggle<CR>
+
+""""""""Vim-action-ag""""""""""
+nmap gw <Plug>AgActionWord
+
+""""""Save marks""""""
+set viminfo='100,f1
+
+""""""""Quickhl""""""""""
+"highlight multiple words
+nmap <leader>m <Plug>(quickhl-manual-this)
+xmap <leader>m <Plug>(quickhl-manual-this)
+nmap <leader>M <Plug>(quickhl-manual-reset)
+xmap <leader>M <Plug>(quickhl-manual-reset)
+
+""""""Limelight""""""
+nmap <leader>l <Plug>(Limelight)
+xmap <leader>l <Plug>(Limelight)
+
+
+""""""CCTree""""""
+let g:CCTreeOrientation = "above"
+
+""""""Memolist""""""
+"memolist path
+if s:uname == "Darwin\n"
+	let g:memolist_path = "/Users/mono/dropbox/memo"
+elseif s:uname == "Linux\n"
+	let g:memolist_path = "/home/".$USER."/Documents/md"
+endif
+"markdown preview
+if s:uname == "Darwin\n"
+	let g:mkdp_path_to_chrome = "open -a Google\\ Chrome "
+elseif s:uname == "Linux\n"
+	let g:mkdp_path_to_chrome = "chromium-browser"
+endif
+"markdown simply make a word strong
+nnoremap <silent> <plug>MStrong :<C-U>normal! yiwciw**<CR>:<C-U>normal! pa**<CR>
+"nmap <leader>s <Plug>MStrong
+
+""""""python-mode""""""""
+"let g:pymode = 1
+"let g:pymode_folding = 1
+""auto complete
+"let g:pymode_rope = 1
+"let g:pymode_rope_complete_on_dot = 1
+"""Documentation
+"let g:pymode_doc = 1
+"let g:pymode_doc_key = 'K'
+"""Linting
+"let g:pymode_lint = 1
+"let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+"""Auto check on save
+""let g:pymode_lint_on_write = 1
+"let g:pymode_lint_on_fly = 1
+"let g:pymode_lint_message = 1
+""Support virtualenv
+"let g:pymode_virtualenv = 1
+"
+"""syntax highlighting
+"let g:pymode_syntax = 1
+"let g:pymode_syntax_all =1
+"let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+"let g:pymode_syntax_space_errors = g:pymode_syntax_all
+"let g:pymode_trim_whitespaces = 1
+"let g:pymode_options_colorcolumn = 1
+""let g:pymode_python = 'python3'
+"let g:pymode_indent = 1
+"let g:pymode_run = 1
+"let g:pymode_run_bind = '<leader>r'
