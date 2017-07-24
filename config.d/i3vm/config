@@ -1,0 +1,218 @@
+# i3_config file
+# Author: Timothy You
+#
+# Use 'xmodmap' to check control key symbols
+# Use 'xmodmap -pke' to check all key symbols
+# Requires: https://github.com/FortAwesome/Font-Awesome/releases
+# Requires: https://github.com/supermarin/YosemiteSanFranciscoFont
+# Download release, copy ttf fonts into ~/.fonts/
+#
+# Requires i3blocks, lxappearance
+#
+
+set $mod_option Mod1
+set $monitor Virtual1
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:System San Francisco Display 16
+
+#default orientation
+#<horizontal|vertical|auto>
+default_orientation auto
+
+#workspace layout
+#<default|stacking|tabbed>
+workspace_layout default
+
+#Border style for new windows
+#<normal|1pixel|none|pixel>
+new_window normal
+new_float normal
+
+#hide_edge_borders none|vertical|horizontal|both|smart
+hide_edge_borders smart
+
+workspace_auto_back_and_forth no
+#Focus follows mouse
+#focus_follows_mouse	yes|no
+focus_follows_mouse	yes
+
+#popup during fullscreen mode
+#popup_during_fullscreen smart|ignore|leave_fullscreen
+popup_during_fullscreen leave_fullscreen
+
+#use xprop to see class and instance
+#add 1 pixel for all xterm window
+#for_window [class="XTerm"] border pixel 1
+
+#focus wrapping
+force_focus_wrapping yes
+
+#----key bindings------------------------------------
+
+#Use Mouse+$mod_option to drag floating windows to their wanted position
+floating_modifier $mod_option
+
+#Start a terminal
+bindsym $mod_option+t exec i3-sensible-terminal
+#bindsym $mod_option+t exec gnome-terminal
+
+#Kill focused window
+bindsym $mod_option+Shift+Q kill
+
+set $bgc	#001f00
+set $fgc 	#ffff1f
+set $tex	#ffff1f
+
+#Start dmenu (a program launcher)
+bindsym $mod_option+space exec rofi -show run -lines 10 -eh 2 -font 'System San Francisco Display 16'
+
+#Change focus
+bindsym $mod_option+h focus left
+bindsym $mod_option+j focus down
+bindsym $mod_option+k focus up
+bindsym $mod_option+l focus right
+
+#Move focused window
+bindsym $mod_option+Shift+H move left
+bindsym $mod_option+Shift+J move down
+bindsym $mod_option+Shift+K move up
+bindsym $mod_option+Shift+L move right
+
+#Split in horizontal orientation
+bindsym $mod_option+s split h
+
+#Split in vertical orientation
+bindsym $mod_option+v split v
+
+#Enter fullscreen mode for the focused container
+bindsym $mod_option+f fullscreen
+
+#Change container layout (stacked, tabbed, default)
+bindsym $mod_option+Shift+S layout stacking
+bindsym $mod_option+Shift+T layout tabbed
+bindsym $mod_option+Shift+D layout default
+
+#Toggle tiling / floating
+bindsym $mod_option+Shift+w floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod_option+w focus mode_toggle
+
+# focus the parent container
+bindsym $mod_option+p focus parent
+
+# focus the child container
+bindsym $mod_option+c focus child
+
+
+#scratchpad
+bindsym	 $mod_option+Shift+N move scratchpad
+bindsym  $mod_option+n scratchpad show
+
+# reload the configuration file
+bindsym $mod_option+Shift+C reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod_option+Shift+R restart
+# exit i3 (logs you out of your X session)
+bindsym $mod_option+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock screen
+bindsym control+$mod_option+l exec i3lock -n -b -t -i ~/.config/i3/DarkGreen.png
+
+# workspace, naming, navigate
+
+set $t1	"1:"
+set $e1	"2:"
+set $w1	"3:"
+set $w2	"4:"
+set $t2	"5:"
+set $e2	"6:"
+set $w3	"7:"
+set $t3	"8:"
+set $e3 "9:"
+set $w4 "0:"
+# switch to workspace
+bindsym $mod_option+1 workspace $t1
+bindsym $mod_option+2 workspace $e1
+bindsym $mod_option+3 workspace $w1
+bindsym $mod_option+4 workspace $w2
+bindsym $mod_option+5 workspace $t2
+bindsym $mod_option+6 workspace $e2
+bindsym $mod_option+7 workspace $w3
+bindsym $mod_option+8 workspace $t3
+bindsym $mod_option+9 workspace $e3
+bindsym $mod_option+0 workspace $w4
+
+# move focused container to workspace
+bindsym $mod_option+Shift+exclam move workspace $t1
+bindsym $mod_option+Shift+at move workspace $e1
+bindsym $mod_option+Shift+numbersign move workspace $w1
+bindsym $mod_option+Shift+dollar move workspace $w2
+bindsym $mod_option+Shift+percent move workspace $t2
+bindsym $mod_option+Shift+asciicircum move workspace $e2
+bindsym $mod_option+Shift+ampersand move workspace $w3
+bindsym $mod_option+Shift+asterisk move workspace $t3
+bindsym $mod_option+Shift+parenleft move workspace $e3
+bindsym $mod_option+Shift+parenright move workspace $w4
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # They resize the border in the direction you pressed, e.g.
+        # when pressing left, the window is resized so that it has
+        # more space on its left
+
+bindsym j resize shrink down 10 px or 10 ppt
+bindsym Shift+J resize grow   down 10 px or 10 ppt
+
+bindsym k resize shrink up 10 px or 10 ppt
+bindsym Shift+K resize grow   up 10 px or 10 ppt
+
+bindsym l resize shrink right 10 px or 10 ppt
+bindsym Shift+L resize grow   right 10 px or 10 ppt
+
+bindsym h resize shrink left 10 px or 10 ppt
+bindsym Shift+H resize grow   left 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+
+bindsym $mod_option+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	workspace_buttons yes
+#	mode hide
+#	modifier $mod_option
+	position top
+}
+
+# setup monitors
+workspace $t1 output $monitor
+workspace $e1 output $monitor
+workspace $w1 output $monitor
+workspace $w2 output $monitor
+workspace $t2 output $monitor
+workspace $e2 output $monitor
+workspace $w3 output $monitor
+workspace $t3 output $monitor
+workspace $e3 output $monitor
+workspace $w4 output $monitor
+
+# setup app workspace
+assign [class="Chromium"] $w1
+assign [class="Gnome-terminal"] $t1
+assign [class="Atom"] $e1
+assign [class="Nautilus"] $t3
+assign [class="Thunar"] $e3
+assign [class="Google-chrome"] $w3
+assign [class="Firefox-esr"] $w4
+exec_always --no-startup-id /usr/bin/nm-applet
+exec_always --no-startup-id /usr/bin/feh --bg-scale ~/.config/i3/DarkGreen.png
+exec_always --no-startup-id xrandr --output Virtual1 --mode 1920x1200
