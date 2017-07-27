@@ -215,4 +215,7 @@ assign [class="Google-chrome"] $w3
 assign [class="Firefox-esr"] $w4
 exec_always --no-startup-id /usr/bin/nm-applet
 exec_always --no-startup-id /usr/bin/feh --bg-scale ~/.config/i3/DarkGreen.png
-exec_always --no-startup-id xrandr --output Virtual1 --mode 1920x1200
+# get rid of the default workspace 1 on login
+exec --no-startup-id i3-msg workspace $t1
+# start a terminal on login
+exec --no-startup-id i3-sensible-terminal
