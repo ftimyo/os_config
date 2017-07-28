@@ -219,3 +219,4 @@ exec_always --no-startup-id /usr/bin/feh --bg-scale ~/.config/i3/DarkGreen.png
 exec --no-startup-id i3-msg workspace $t1
 # start a terminal on login
 exec --no-startup-id i3-sensible-terminal
+exec --no-startup-id redshift
