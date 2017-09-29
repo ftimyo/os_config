@@ -3,14 +3,22 @@
 #
 # Use 'xmodmap' to check control key symbols
 # Use 'xmodmap -pke' to check all key symbols
+# Requires: https://github.com/FortAwesome/Font-Awesome/releases
+# Requires: https://github.com/supermarin/YosemiteSanFranciscoFont
+# Download release, copy ttf fonts into ~/.fonts/
 #
-set $mod_option Mod1
-set $mod_super Mod4
-set $monitor DP1
-#set $monitor VGA1
+# Requires i3blocks, lxappearance
+#
 
-# font for window titles. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+set $mod_option Mod1
+set $monitor0 eDP-1
+set $monitor1 DP-1
+set $monitor2 HDMI-2
+set $TERMINAL gnome-terminal
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:System San Francisco Display 16
 
 #default orientation
 #<horizontal|vertical|auto>
@@ -22,8 +30,11 @@ workspace_layout default
 
 #Border style for new windows
 #<normal|1pixel|none|pixel>
-new_window none
+new_window 1pixel
 new_float normal
+
+#hide_edge_borders none|vertical|horizontal|both|smart
+hide_edge_borders smart
 
 workspace_auto_back_and_forth no
 #Focus follows mouse
@@ -34,45 +45,27 @@ focus_follows_mouse	yes
 #popup_during_fullscreen smart|ignore|leave_fullscreen
 popup_during_fullscreen leave_fullscreen
 
-#use xprop to see class and instance
-#add 1 pixel for all xterm window
-#for_window [class="XTerm"] border pixel 1
-
 #focus wrapping
 force_focus_wrapping yes
 
 #----key bindings------------------------------------
 
-#volume control
-##Thinkpad X220 keyboard specific
-bindsym XF86AudioMute exec amixer sset Master toggle
-bindsym XF86AudioRaiseVolume exec amixer sset Master 5%+
-bindsym XF86AudioLowerVolume exec amixer sset Master 5%-
-##Generic Keyboard mixer
-bindsym $mod_option+z exec amixer sset Master toggle
-bindsym $mod_option+Shift+plus exec amixer sset Master 5%+
-bindsym $mod_option+Shift+minus exec amixer sset Master 5%-
-
-#brightness control
-##Thinkpad X220 keyboard specific
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-##Generic Keyboard brightness
-bindsym $mod_option+Shift+b exec xbacklight -inc 5
-bindsym $mod_option+b exec xbacklight -dec 5
-
 #Use Mouse+$mod_option to drag floating windows to their wanted position
 floating_modifier $mod_option
 
 #Start a terminal
-#bindsym $mod_option+t exec i3-sensible-terminal
-bindsym $mod_option+t exec gnome-terminal
+bindsym $mod_option+t exec $TERMINAL
+#bindsym $mod_option+t exec gnome-terminal
 
 #Kill focused window
 bindsym $mod_option+Shift+Q kill
 
+set $bgc	#001f00
+set $fgc 	#ffff1f
+set $tex	#ffff1f
+
 #Start dmenu (a program launcher)
-bindsym $mod_option+space exec dmenu_run
+bindsym $mod_option+space exec rofi -show run -lines 10 -eh 2 -font 'System San Francisco Display 16'
 
 #Change focus
 bindsym $mod_option+h focus left
@@ -122,35 +115,45 @@ bindsym $mod_option+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod_option+Shift+R restart
 # exit i3 (logs you out of your X session)
-bindsym $mod_option+Shift+E exit
+bindsym $mod_option+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # lock screen
-bindsym control+$mod_option+l exec i3lock -n -b -t -i ~/.i3/DarkGreen.png
-#bindsym control+$mod_option+l exec i3lock -b -d -c 00ffaa
+bindsym control+$mod_option+l exec i3lock -n -b -t -i ~/.config/i3/DarkGreen.png
 
-#----workspace------------------------------------
+# workspace, naming, navigate
+
+set $t1	"1:"
+set $e1	"2:"
+set $w1	"3:"
+set $w2	"4:"
+set $t2	"5:"
+set $e2	"6:"
+set $w3	"7:"
+set $t3	"8:"
+set $e3 "9:"
+set $w4 "0:"
 # switch to workspace
-bindsym $mod_option+1 workspace 1
-bindsym $mod_option+2 workspace 2
-bindsym $mod_option+3 workspace 3
-bindsym $mod_option+4 workspace 4
-bindsym $mod_option+5 workspace 5
-bindsym $mod_option+6 workspace 6
-bindsym $mod_option+7 workspace 7
-bindsym $mod_option+8 workspace 8
-bindsym $mod_option+9 workspace 9
-bindsym $mod_option+0 workspace 10
+bindsym $mod_option+1 workspace $t1
+bindsym $mod_option+2 workspace $e1
+bindsym $mod_option+3 workspace $w1
+bindsym $mod_option+4 workspace $w2
+bindsym $mod_option+5 workspace $t2
+bindsym $mod_option+6 workspace $e2
+bindsym $mod_option+7 workspace $w3
+bindsym $mod_option+8 workspace $t3
+bindsym $mod_option+9 workspace $e3
+bindsym $mod_option+0 workspace $w4
 
 # move focused container to workspace
-bindsym $mod_option+Shift+exclam move workspace 1
-bindsym $mod_option+Shift+at move workspace 2
-bindsym $mod_option+Shift+numbersign move workspace 3
-bindsym $mod_option+Shift+dollar move workspace 4
-bindsym $mod_option+Shift+percent move workspace 5
-bindsym $mod_option+Shift+asciicircum move workspace 6
-bindsym $mod_option+Shift+ampersand move workspace 7
-bindsym $mod_option+Shift+asterisk move workspace 8
-bindsym $mod_option+Shift+parenleft move workspace 9
-bindsym $mod_option+Shift+parenright move workspace 10
+bindsym $mod_option+Shift+exclam move workspace $t1
+bindsym $mod_option+Shift+at move workspace $e1
+bindsym $mod_option+Shift+numbersign move workspace $w1
+bindsym $mod_option+Shift+dollar move workspace $w2
+bindsym $mod_option+Shift+percent move workspace $t2
+bindsym $mod_option+Shift+asciicircum move workspace $e2
+bindsym $mod_option+Shift+ampersand move workspace $w3
+bindsym $mod_option+Shift+asterisk move workspace $t3
+bindsym $mod_option+Shift+parenleft move workspace $e3
+bindsym $mod_option+Shift+parenright move workspace $w4
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -182,30 +185,43 @@ bindsym $mod_option+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status --config ~/.i3/i3status.conf
-		workspace_buttons yes
-#		mode hide
-#		modifier $mod_option
-		position top
+        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	workspace_buttons yes
+#	mode hide
+#	modifier $mod_option
+	position top
 }
-workspace 1 output $monitor
-workspace 2 output $monitor
-workspace 3 output $monitor
-workspace 4 output $monitor
-workspace 5 output $monitor
-workspace 6 output $monitor
-workspace 7 output $monitor
-workspace 8 output $monitor
-workspace 9 output $monitor
-#exec --no-startup-id xrandr --output $monitor --auto --rotate left --output LVDS1 --right-of $monitor --mode 1366x768
-#exec --no-startup-id xrandr --output $monitor --auto --rotate normal --output LVDS1 --right-of $monitor --mode 1366x768
-#exec --no-startup-id i3lock -n -b -t -i ~/.i3/linen.png
-#exec --no-startup-id i3-msg "workspace 9; exec google-chrome --incognito; workspace 1"
-exec --no-startup-id /usr/bin/nm-applet
-exec --no-startup-id /usr/bin/gnome-settings-daemon
-##may call "dconf write /org/gnome/settings-daemon/plugins/cursor/active false"
-##to fix the cursor disappear bug in gnome-settings-daemon
-exec --no-startup-id /usr/bin/gnome-keyring-daemon
-#exec --no-startup-id /usr/bin/gnome-screensaver
-#exec --no-startup-id /usr/bin/dropbox start
-exec --no-startup-id /usr/bin/feh --bg-scale ~/.i3/DarkGreen.png
+
+# setup monitors
+workspace $t1 output $monitor1
+workspace $e1 output $monitor1
+workspace $w1 output $monitor1
+workspace $w2 output $monitor1
+workspace $t2 output $monitor2
+workspace $e2 output $monitor2
+workspace $w3 output $monitor2
+workspace $t3 output $monitor0
+workspace $e3 output $monitor0
+workspace $w4 output $monitor0
+exec --no-startup-id xrandr --output HDMI-2 --mode 2560x1600 --pos 3520x0 --rotate left --output HDMI-1 --off --output DP-1 --mode 2560x1600 --pos 1920x0 --rotate left --output eDP-1 --primary --mode 1920x1080 --pos 0x776 --rotate normal --output DP-2 --off
+
+#use xprop to see window class and instance
+#add 1 pixel for all xterm window
+#for window [class="XTerm"] border pixel 1
+
+# setup app workspace
+assign [class="Chromium"] $w1
+assign [class="Gnome-terminal"] $t1
+assign [class="Atom"] $e1
+assign [class="Nautilus"] $t3
+assign [class="Thunar"] $e3
+assign [class="Google-chrome"] $w3
+assign [class="Firefox-esr"] $w4
+assign [class="Firefox"] $w4
+exec_always --no-startup-id /usr/bin/nm-applet
+exec_always --no-startup-id /usr/bin/feh --bg-scale ~/.config/i3/DarkGreen.png
+# get rid of the default workspace 1 on login
+exec --no-startup-id i3-msg workspace $t1
+# start a terminal on login
+exec --no-startup-id $TERMINAL
+exec --no-startup-id redshift
