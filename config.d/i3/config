@@ -14,11 +14,12 @@ set $mod_option Mod1
 set $monitor0 eDP-1
 set $monitor1 DP-1
 set $monitor2 HDMI-2
-set $TERMINAL gnome-terminal
+# set $TERMINAL gnome-terminal
+set $TERMINAL urxvt
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:System San Francisco Display 16
+font pango:Noto Sans Mono 12
 
 #default orientation
 #<horizontal|vertical|auto>
@@ -60,12 +61,8 @@ bindsym $mod_option+t exec $TERMINAL
 #Kill focused window
 bindsym $mod_option+Shift+Q kill
 
-set $bgc	#001f00
-set $fgc 	#ffff1f
-set $tex	#ffff1f
-
 #Start dmenu (a program launcher)
-bindsym $mod_option+space exec rofi -show run -lines 10 -eh 2 -font 'System San Francisco Display 16'
+bindsym $mod_option+space exec rofi -show run -font 'Noto Sans Mono 12'
 
 #Change focus
 bindsym $mod_option+h focus left
@@ -74,10 +71,10 @@ bindsym $mod_option+k focus up
 bindsym $mod_option+l focus right
 
 #Move focused window
-bindsym $mod_option+Shift+H move left
-bindsym $mod_option+Shift+J move down
-bindsym $mod_option+Shift+K move up
-bindsym $mod_option+Shift+L move right
+bindsym $mod_option+Left move left
+bindsym $mod_option+Down move down
+bindsym $mod_option+Up move up
+bindsym $mod_option+Right move right
 
 #Split in horizontal orientation
 bindsym $mod_option+s split h
@@ -155,41 +152,35 @@ bindsym $mod_option+Shift+asterisk move workspace $t3
 bindsym $mod_option+Shift+parenleft move workspace $e3
 bindsym $mod_option+Shift+parenright move workspace $w4
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# resize window (no resize mode)
 
-        # They resize the border in the direction you pressed, e.g.
-        # when pressing left, the window is resized so that it has
-        # more space on its left
-
-bindsym j resize shrink down 10 px or 10 ppt
-bindsym Shift+J resize grow   down 10 px or 10 ppt
-
-bindsym k resize shrink up 10 px or 10 ppt
-bindsym Shift+K resize grow   up 10 px or 10 ppt
-
-bindsym l resize shrink right 10 px or 10 ppt
-bindsym Shift+L resize grow   right 10 px or 10 ppt
-
-bindsym h resize shrink left 10 px or 10 ppt
-bindsym Shift+H resize grow   left 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-bindsym Return mode "default"
-bindsym Escape mode "default"
-}
-
-bindsym $mod_option+r mode "resize"
+bindsym $mod_option+Shift+J resize shrink   height 10 px or 10 ppt
+bindsym $mod_option+Shift+K resize grow   height 10 px or 10 ppt
+bindsym $mod_option+Shift+L resize shrink   width 10 px or 10 ppt
+bindsym $mod_option+Shift+H resize grow   width 10 px or 10 ppt
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+set $bgc	#2f343f
+set $wbgc	#2f343f
+set $ibgc	#2f343f
+set $wtex	#f3f4f5
+set $itex	#676e7d
+set $ubgc   #e53935
+
 bar {
-        status_command i3blocks -c ~/.config/i3/i3blocks.conf
+    status_command i3blocks -c ~/.config/i3/i3blocks.conf
 	workspace_buttons yes
 #	mode hide
 #	modifier $mod_option
 	position top
+    colors {
+        background $bgc
+        separator   #757575
+                            #border #bg     #text
+        focused_workspace   $wbgc   $wbgc   $wtex
+        inactive_workspace  $ibgc   $ibgc   $itex
+    }
 }
 
 # setup monitors
