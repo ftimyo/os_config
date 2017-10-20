@@ -1,0 +1,218 @@
+# i3_config file
+# Author: Timothy You
+#
+# Use 'xmodmap' to check control key symbols
+# Use 'xmodmap -pke' to check all key symbols
+# Requires: https://github.com/FortAwesome/Font-Awesome/releases
+# Requires: https://github.com/supermarin/YosemiteSanFranciscoFont
+# Download release, copy ttf fonts into ~/.fonts/
+#
+# Requires i3blocks, lxappearance
+#
+
+set $mod_option Mod1
+set $monitor0 eDP1
+set $monitor1 DP1
+set $monitor2 HDMI2
+# set $TERMINAL gnome-terminal
+set $TERMINAL urxvt
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Noto Sans Mono 12
+
+#default orientation
+#<horizontal|vertical|auto>
+default_orientation auto
+
+#workspace layout
+#<default|stacking|tabbed>
+workspace_layout default
+
+#Border style for new windows
+#<normal|1pixel|none|pixel>
+new_window 1pixel
+new_float normal
+
+#hide_edge_borders none|vertical|horizontal|both|smart
+hide_edge_borders smart
+
+workspace_auto_back_and_forth no
+#Focus follows mouse
+#focus_follows_mouse	yes|no
+focus_follows_mouse	yes
+
+#popup during fullscreen mode
+#popup_during_fullscreen smart|ignore|leave_fullscreen
+popup_during_fullscreen leave_fullscreen
+
+#focus wrapping
+force_focus_wrapping yes
+
+#----key bindings------------------------------------
+
+#Use Mouse+$mod_option to drag floating windows to their wanted position
+floating_modifier $mod_option
+
+#Start a terminal
+bindsym $mod_option+t exec $TERMINAL
+#bindsym $mod_option+t exec gnome-terminal
+
+#Kill focused window
+bindsym $mod_option+Shift+Q kill
+
+#Start dmenu (a program launcher)
+bindsym $mod_option+space exec rofi -show run -font 'Noto Sans Mono 12'
+
+#Change focus
+bindsym $mod_option+h focus left
+bindsym $mod_option+j focus down
+bindsym $mod_option+k focus up
+bindsym $mod_option+l focus right
+
+#Move focused window
+bindsym $mod_option+Left move left
+bindsym $mod_option+Down move down
+bindsym $mod_option+Up move up
+bindsym $mod_option+Right move right
+
+#Split in horizontal orientation
+bindsym $mod_option+s split h
+
+#Split in vertical orientation
+bindsym $mod_option+v split v
+
+#Enter fullscreen mode for the focused container
+bindsym $mod_option+f fullscreen
+
+#Change container layout (stacked, tabbed, default)
+bindsym $mod_option+Shift+S layout stacking
+bindsym $mod_option+Shift+T layout tabbed
+bindsym $mod_option+Shift+D layout default
+
+#Toggle tiling / floating
+bindsym $mod_option+Shift+w floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod_option+w focus mode_toggle
+
+# focus the parent container
+bindsym $mod_option+p focus parent
+
+# focus the child container
+bindsym $mod_option+c focus child
+
+
+#scratchpad
+bindsym	 $mod_option+Shift+N move scratchpad
+bindsym  $mod_option+n scratchpad show
+
+# reload the configuration file
+bindsym $mod_option+Shift+C reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod_option+Shift+R restart
+# exit i3 (logs you out of your X session)
+bindsym $mod_option+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# lock screen
+bindsym control+$mod_option+l exec i3lock -n -b -t -i ~/.config/i3/DarkGreen.png
+
+# workspace, naming, navigate
+
+set $t1	"1:"
+set $e1	"2:"
+set $w1	"3:"
+set $w2	"4:"
+set $t2	"5:"
+set $e2	"6:"
+set $w3	"7:"
+set $t3	"8:"
+set $e3 "9:"
+set $w4 "0:"
+# switch to workspace
+bindsym $mod_option+1 workspace $t1
+bindsym $mod_option+2 workspace $e1
+bindsym $mod_option+3 workspace $w1
+bindsym $mod_option+4 workspace $w2
+bindsym $mod_option+5 workspace $t2
+bindsym $mod_option+6 workspace $e2
+bindsym $mod_option+7 workspace $w3
+bindsym $mod_option+8 workspace $t3
+bindsym $mod_option+9 workspace $e3
+bindsym $mod_option+0 workspace $w4
+
+# move focused container to workspace
+bindsym $mod_option+Shift+exclam move workspace $t1
+bindsym $mod_option+Shift+at move workspace $e1
+bindsym $mod_option+Shift+numbersign move workspace $w1
+bindsym $mod_option+Shift+dollar move workspace $w2
+bindsym $mod_option+Shift+percent move workspace $t2
+bindsym $mod_option+Shift+asciicircum move workspace $e2
+bindsym $mod_option+Shift+ampersand move workspace $w3
+bindsym $mod_option+Shift+asterisk move workspace $t3
+bindsym $mod_option+Shift+parenleft move workspace $e3
+bindsym $mod_option+Shift+parenright move workspace $w4
+
+# resize window (no resize mode)
+
+bindsym $mod_option+Shift+J resize shrink   height 10 px or 10 ppt
+bindsym $mod_option+Shift+K resize grow   height 10 px or 10 ppt
+bindsym $mod_option+Shift+L resize shrink   width 10 px or 10 ppt
+bindsym $mod_option+Shift+H resize grow   width 10 px or 10 ppt
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+set $bgc	#2f343f
+set $wbgc	#2f343f
+set $ibgc	#2f343f
+set $wtex	#f3f4f5
+set $itex	#676e7d
+set $ubgc   #e53935
+
+bar {
+    status_command SCRIPT_DIR=~/.config/i3 i3blocks -c ~/.config/i3/i3blocks.conf
+	workspace_buttons yes
+#	mode hide
+#	modifier $mod_option
+	position top
+    colors {
+        background $bgc
+        separator   #757575
+                            #border #bg     #text
+        focused_workspace   $wbgc   $wbgc   $wtex
+        inactive_workspace  $ibgc   $ibgc   $itex
+    }
+}
+
+# setup monitors
+exec --no-startup-id xrandr --output VIRTUAL1 --off --output eDP1 --primary --mode 1920x1080 --pos 1600x2112 --rotate normal --output DP1 --mode 2560x1600 --pos 0x0 --rotate left --output HDMI2 --mode 2560x1600 --pos 1600x512 --rotate normal --output HDMI1 --off --output DP2 --off
+workspace $t1 output $monitor0
+workspace $e1 output $monitor0
+workspace $w1 output $monitor0
+workspace $w2 output $monitor0
+workspace $t2 output $monitor1
+workspace $e2 output $monitor1
+workspace $w3 output $monitor1
+workspace $t3 output $monitor2
+workspace $e3 output $monitor2
+workspace $w4 output $monitor2
+
+#use xprop to see window class and instance
+#add 1 pixel for all xterm window
+#for window [class="XTerm"] border pixel 1
+
+# setup app workspace
+assign [class="Chromium"] $w1
+assign [class="Gnome-terminal"] $t1
+assign [class="Atom"] $e1
+assign [class="Nautilus"] $t3
+assign [class="Thunar"] $e3
+assign [class="Google-chrome"] $w3
+assign [class="Firefox-esr"] $w4
+assign [class="Firefox"] $w4
+exec_always --no-startup-id /usr/bin/nm-applet
+exec_always --no-startup-id /usr/bin/feh --bg-scale ~/.config/i3/DarkGreen.png
+# get rid of the default workspace 1 on login
+exec --no-startup-id i3-msg workspace $t1
+# start a terminal on login
+exec --no-startup-id $TERMINAL
+exec --no-startup-id redshift
