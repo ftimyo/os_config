@@ -5,6 +5,9 @@ alias youtube-dl-video='youtube-dl --ignore-errors --output "%(playlist)s/%(play
 set -o vi
 export EDITOR=vim
 export VISUAL=vim
+if [[ "$TERM" == "xterm-ghostty" ]]; then
+    export TERM=xterm-256color
+fi
 
 #############################Prompt Setup#######################################
 function precmd {

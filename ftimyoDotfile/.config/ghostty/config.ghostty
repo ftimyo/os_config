@@ -1,0 +1,87 @@
+# ==============================================================================
+# Ghostty Configuration (config.ghostty)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Scrollback & History (Unlimited Scrollback)
+# ------------------------------------------------------------------------------
+# Ghostty defaults to a 50MB limit. Setting this to 'unlimited' removes the byte
+# limit so you never lose terminal history.
+scrollback-limit-bytes = unlimited
+
+# Maximum lines of scrollback to retain (unlimited by default).
+scrollback-limit-lines = unlimited
+
+# Compress inactive scrollback pages in memory (saves ~70-90% RAM for large history).
+scrollback-compression = true
+
+# Scroll sensitivity: tuned for smooth macOS trackpad and responsive mouse wheel.
+mouse-scroll-multiplier = precision:1,discrete:3
+
+# Show macOS native scrollbar when actively scrolling.
+scrollbar = system
+
+# ------------------------------------------------------------------------------
+# 2. Remote SSH & Tmux Integration
+# ------------------------------------------------------------------------------
+# Set TERM to xterm-256color so remote SSH servers and tmux always recognize the
+# terminal out of the box (fixes "missing or unsuitable terminal: xterm-ghostty").
+term = xterm-256color
+
+# Enable SSH environment compatibility (converts TERM to xterm-256color on SSH)
+# and disable ssh-terminfo so Ghostty never forces TERM=xterm-ghostty remotely.
+shell-integration-features = cursor,sudo,title,ssh-env,no-ssh-terminfo,path
+
+# Allow remote tmux/vim over SSH to read and write to macOS system clipboard via OSC 52.
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+# Automatically copy selected text to clipboard.
+copy-on-select = clipboard
+
+# Allow Shift + Click / Drag to bypass tmux mouse capture and select in Ghostty directly.
+mouse-shift-capture = false
+
+# Enable mouse reporting so tmux with 'set -g mouse on' receives scroll & click events.
+mouse-reporting = true
+
+# Hide mouse cursor when typing.
+mouse-hide-while-typing = true
+
+# ------------------------------------------------------------------------------
+# 3. macOS Keyboard & Window Behavior
+# ------------------------------------------------------------------------------
+# Treat Option key as Alt/Meta. Essential for tmux bindings (e.g., Alt+arrows to
+# switch panes, Alt+1..9 to switch windows) and readline navigation (Alt+f / Alt+b).
+macos-option-as-alt = true
+
+# Modern transparent titlebar matching window background.
+macos-titlebar-style = transparent
+
+# Window padding (comfortable breathing room around text).
+window-padding-x = 12
+window-padding-y = 10
+window-padding-balance = true
+
+# Close windows and tabs without an annoying confirmation prompt.
+confirm-close-surface = false
+
+# Keep Ghostty running when all windows are closed (standard macOS behavior).
+quit-after-last-window-closed = false
+
+# ------------------------------------------------------------------------------
+# 4. Font & Typography
+# ------------------------------------------------------------------------------
+font-family = Menlo
+font-size = 14
+
+# Cursor configuration
+cursor-style = block
+cursor-style-blink = false
+
+# ------------------------------------------------------------------------------
+# 5. Theme
+# ------------------------------------------------------------------------------
+# Automatically match macOS system appearance (dark / light mode).
+theme = dark:Catppuccin Mocha,light:Catppuccin Latte
