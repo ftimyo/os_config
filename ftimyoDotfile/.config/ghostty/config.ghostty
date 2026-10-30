@@ -81,7 +81,12 @@ cursor-style = block
 cursor-style-blink = false
 
 # ------------------------------------------------------------------------------
-# 5. Theme
+# 5. Theme & Accessibility (Color-Blind Friendly Solarized Dark)
 # ------------------------------------------------------------------------------
-# Automatically match macOS system appearance (dark / light mode).
-theme = dark:Catppuccin Mocha,light:Catppuccin Latte
+# Classic Solarized Dark (matches iTerm2's Solarized Dark).
+# Alternative higher-contrast option: theme = Solarized Dark Higher Contrast
+theme = iTerm2 Solarized Dark
+
+# Enforce a minimum WCAG 2.0 contrast ratio (1-21) so colored text is always
+# legible and never blends into the background.
+minimum-contrast = 3
