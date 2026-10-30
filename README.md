@@ -92,6 +92,28 @@ cat somefile >> .bashrc
 ##3) source the .bashrc file in the login configuration file.
 ##for example, .profile || .bash_profile
 
+#Configure Ghostty (macOS)
+##1) Copy Ghostty configuration to ~/.config/ghostty/config.ghostty
+mkdir -p ~/.config/ghostty
+cp ftimyoDotfile/.config/ghostty/config.ghostty ~/.config/ghostty/config.ghostty
+##2) (Optional) Install Ghostty terminfo on a remote server / Lima VM if needed:
+TERMINFO=/Applications/Ghostty.app/Contents/Resources/terminfo infocmp -x xterm-ghostty | ssh user@remote-host -- sudo tic -x -
+
+#Configure Tmux & Session Persistence Plugins
+##1) Copy .tmux.conf to ~/
+cp ftimyoDotfile/.tmux.conf ~/.tmux.conf
+##2) Install tmux-resurrect and tmux-continuum plugins
+mkdir -p ~/.tmux/plugins
+git clone https://github.com/tmux-plugins/tmux-resurrect ~/.tmux/plugins/tmux-resurrect
+git clone https://github.com/tmux-plugins/tmux-continuum ~/.tmux/plugins/tmux-continuum
+##   (If git is not installed on the remote machine, copy from local: scp -r ~/.tmux/plugins user@remote-host:~/.tmux/)
+##3) Reload tmux config:
+tmux source-file ~/.tmux.conf
+##   Keybindings:
+##   - Ctrl+a r      : Reload ~/.tmux.conf
+##   - Ctrl+a Ctrl+s : Save tmux sessions manually
+##   - Ctrl+a Ctrl+r : Restore tmux sessions manually
+
 
 
 ###########END CONFIGURATIONS##########
