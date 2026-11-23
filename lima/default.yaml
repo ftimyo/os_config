@@ -1,0 +1,103 @@
+minimumLimaVersion: 2.0.0
+images:
+# Try to use release-yyyyMMdd image if available. Note that release-yyyyMMdd will be removed after several months.
+
+- location: "https://cloud.debian.org/images/cloud/bookworm/20260923-2610/debian-12-genericcloud-amd64-20260923-2610.qcow2"
+  arch: "x86_64"
+  digest: "sha512:3d94c9dd66d8a283fde060b8810373b7ae04038b956ee00d553d1ae564f6fbdeaa2fd6e7404e87e53348b5a9509170f3ea7c0731ba737590c5c4cb8d559a47f8"
+  variant: "genericcloud"
+- location: "https://cloud.debian.org/images/cloud/bookworm/20260923-2610/debian-12-genericcloud-arm64-20260923-2610.qcow2"
+  arch: "aarch64"
+  digest: "sha512:89a752d5c7d8e88bee39a57d88d496cca574f7d1e8df5df7a169825435f99feb11ed13ab27ec7bee96fe1584be4ff9479358fbca6cc859efa109f4aba18724c8"
+  variant: "genericcloud"
+- location: "https://cloud.debian.org/images/cloud/bookworm/20260923-2610/debian-12-generic-ppc64el-20260923-2610.qcow2"
+  arch: "ppc64le"
+  digest: "sha512:ba981268c7fa730c004314730e3545dace001e2e4d7e4118e8b5e51b4953f9c151477ac5f10442b496762804df2354cd0c7f051e9a0119e4eff51c013e5a454b"
+  variant: "generic"
+
+# Fallback to the latest release image.
+# Hint: run `limactl prune` to invalidate the cache
+
+- location: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2
+  arch: x86_64
+  variant: "genericcloud"
+
+- location: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-arm64.qcow2
+  arch: aarch64
+  variant: "genericcloud"
+
+- location: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-ppc64el.qcow2
+  arch: ppc64le
+  variant: "generic"
+
+# Try to use release-yyyyMMdd nocloud image if available.
+- location: "https://cloud.debian.org/images/cloud/bookworm/20260923-2610/debian-12-nocloud-amd64-20260923-2610.qcow2"
+  arch: "x86_64"
+  digest: "sha512:d8262cf05112a3311f37fa2a01a33fb35b1f0f0934261fa204bdbbe49d5d1d9956156bc64348de2f19e9a362c2861fd6289e4cff7447a205092a37a3b78027bc"
+  variant: "nocloud"
+- location: "https://cloud.debian.org/images/cloud/bookworm/20260923-2610/debian-12-nocloud-arm64-20260923-2610.qcow2"
+  arch: "aarch64"
+  digest: "sha512:407f2dfc897aea98aa95b948d79f00ded4aa940c3f13a6f314eeaf10ac2cd3d0453943f836d8410c26c7e80c7c3cb823c89a877fdf1e18811db4e61feadeb729"
+  variant: "nocloud"
+- location: "https://cloud.debian.org/images/cloud/bookworm/20260923-2610/debian-12-nocloud-ppc64el-20260923-2610.qcow2"
+  arch: "ppc64le"
+  digest: "sha512:af2620fc0e3f200294f48e5a608d41a9925515e1dd5382d5998cf175414de6bf515b34016cb8b47ae736e2f51b35b2da45b908a482d9b4d079f56b1a6c77f39d"
+  variant: "nocloud"
+
+# Fallback nocloud images
+- location: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-nocloud-amd64.qcow2
+  arch: x86_64
+  variant: "nocloud"
+
+- location: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-nocloud-arm64.qcow2
+  arch: aarch64
+  variant: "nocloud"
+
+- location: https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-nocloud-ppc64el.qcow2
+  arch: ppc64le
+  variant: "nocloud"
+
+vmType: "vz"
+mountType: "virtiofs"
+mountTypesUnsupported: [9p]
+mounts:
+- location: "~"
+
+- location: "~/WS"
+  writable: true
+
+
+# # /tmp/lima is no longer mounted by default since Lima v2.0.
+# - location: "{{.GlobalTempDir}}/lima"
+#  mountPoint: /tmp/lima
+#  writable: true
+
+provision:
+- mode: system
+  script: |
+    #!/bin/bash
+    echo "preserve_hostname: true" > /etc/cloud/cloud.cfg.d/99-preserve-hostname.cfg
+    hostnamectl set-hostname nyx
+    sed -i "s/$(cat /etc/hostname)/nyx/g" /etc/hosts
+memory: 6GiB
+
+# yjm_flow_server (docs/design.md §14): show the VM's plain Chromium on the
+# Mac's screen through XQuartz, for `login` and `open`. Trusted forwarding,
+# because Chromium misbehaves under the X SECURITY extension; it reaches only
+# XQuartz's own windows. Read by `limactl shell` when it starts.
+ssh:
+  forwardX11: true
+  forwardX11Trusted: true
+
+# yjm_flow_server (docs/design.md §14): keep the browser's debugging port,
+# which it picks from Debian's ephemeral range, inside the VM. Other ports,
+# such as the API's 8096, are still forwarded to the Mac's 127.0.0.1.
+# Read by the host agent: takes effect at the next `limactl start`.
+portForwards:
+- guestPortRange: [32768, 60999]
+  ignore: true
+# sshd's X11 proxy for each forwarded session (display :10 is port 6010):
+# it only leads back to XQuartz, so the Mac has no use for it.
+- guestPortRange: [6000, 6099]
+  ignore: true
+disk: 150GiB

@@ -114,6 +114,21 @@ tmux source-file ~/.tmux.conf
 ##   - Ctrl+a Ctrl+s : Save tmux sessions manually
 ##   - Ctrl+a Ctrl+r : Restore tmux sessions manually
 
+#Configure the Lima VM (macOS)
+##lima/default.yaml is ~/.lima/default/lima.yaml: Debian 12 on vz, hostname
+##nyx, 4 CPUs, 6GiB memory, 150GiB disk, ~ and ~/WS (writable) mounted,
+##X11 forwarded to XQuartz, and ports 6000-6099 and 32768-60999 kept in the VM.
+##1) Create and start the VM from the saved config
+limactl create --name=default lima/default.yaml
+limactl start default
+##2) For GUI apps from the VM (Chromium), install XQuartz (see the apps above),
+##   then log out and back in, so that DISPLAY is set before `limactl start`
+##3) Inside the VM, the packages installed by hand
+sudo apt install chromium xauth xvfb x11-utils
+loginctl enable-linger $USER
+##4) After changing the VM (limactl edit), save its config back here
+cp ~/.lima/default/lima.yaml lima/default.yaml
+
 
 
 ###########END CONFIGURATIONS##########
